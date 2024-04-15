@@ -35,11 +35,20 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-            while (true)
-            {BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            out.println("Hello from server");
-            System.out.println(in.readLine());}
+            
+            while (true) {
+                String message = in.readLine();
+                if (message == null) {
+                    break;
+                }
+                
+                out.println("Hello from server");
+                System.out.println(message);
+            }
+            
+            clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,6 +13,12 @@ public class Client {
     private BufferedReader in;
     private PrintWriter out;
 
+    private String pseudo;
+
+    public Client() {
+
+    }
+
     public void createConnection(String ipServeur, int port) {
         try {
             clientSocket = new Socket(ipServeur, port);
@@ -55,16 +61,25 @@ public class Client {
     }
 
     public static void main(String[] args) {
+        
         Client client = new Client();
 
         client.createConnection("192.168.228.169", 8080);
         while (true) {
             String message = client.askForSms();
             client.sendMessage(message);
+        client.createConnection("192.168.228.169",8080);
+        int i = 0;
+        while(i < 500){    
+            
+            client.sendMessage("Hello from Maël" + i);
 
             System.out.println(client.receiveMessage());
+            i++;
         }
 
         // client.closeConnection();
+        
+        client.closeConnection();
     }
 }
