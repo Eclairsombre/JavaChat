@@ -78,10 +78,9 @@ public class Client {
 
         client.createConnection("192.168.228.169", 8080);
         while (true) {
-            
+            String message = client.pseudo + " : " + client.askForSms();
             new Thread(
                 () -> {
-                    String message = client.pseudo + " : " + client.askForSms();
                     client.sendMessage(message);
                 }
             ).start();
