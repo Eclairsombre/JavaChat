@@ -86,7 +86,11 @@ public class Client {
             ).start();
             
             new Thread(null, () -> {
-                System.out.println(client.receiveMessage());
+                String receivedMessage = client.receiveMessage();
+                while (receivedMessage != null) {
+                    System.out.println(receivedMessage);
+                    receivedMessage = client.receiveMessage();
+                }
             }).start();
         }
     }
