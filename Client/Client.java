@@ -68,7 +68,6 @@ public class Client {
         while (true) {
             String message = client.askForSms();
             client.sendMessage(message);
-            client.createConnection("192.168.228.169", 8080);
 
             // client.closeConnection();
 
