@@ -47,12 +47,15 @@ public class Client{
     }
 
     public static void main(String[] args) {
+        
         Client client = new Client();
-        client.createConnection("192.168.113.193",8080);
+        client.createConnection("192.168.228.169",8080);
 
-        client.sendMessage("Hello from client");
+        while (true) {
+            client.sendMessage("Hello from Maël");
 
-        System.out.println(client.receiveMessage());
-        client.closeConnection();
+            System.out.println(client.receiveMessage());
+        }
+        // client.closeConnection();
     }
 }
