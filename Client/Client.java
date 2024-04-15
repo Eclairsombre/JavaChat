@@ -60,7 +60,7 @@ public class Client {
         System.out.println("Veuillez entrer un message : ");
         String message = scanner.nextLine();
         System.out.println("Le message que vous avez entré est : " + message);
-        scanner.close();
+        //scanner.close();
         return message;
     }
 
@@ -71,9 +71,24 @@ public class Client {
         client.createConnection("192.168.228.169", 8080);
         while (true) {
             String message = client.pseudo + " : " + client.askForSms();
+            new Thread(
+                () -> {
+                    while (true) {
+                        client.sendMessage(message);
+                    }
+                }
+            ).start();
+            
             client.sendMessage(message);
+            new Thread(null, () -> {
+                while (true) {
+                    if(client.receiveMessage() != null && client.receiveMessage() != message){
+                        System.out.println(client.receiveMessage());
+                    }
+                }
+            }).start();
 
-            System.out.println(client.receiveMessage());
+            
 
 
         }
