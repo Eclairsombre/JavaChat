@@ -6,7 +6,6 @@ import java.net.UnknownHostException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class Client {
     private Socket clientSocket;
@@ -16,10 +15,15 @@ public class Client {
     private String pseudo;
 
     public Client() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Veuillez entrer votre pseudo : ");
-        this.pseudo = scanner.nextLine();
-        scanner.close();
+        System.out.print("Your name : ");
+        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+        String inputString = "";
+        try {
+            inputString = bufferRead.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.pseudo  = inputString;
     }
 
     public void createConnection(String ipServeur, int port) {
@@ -28,8 +32,10 @@ public class Client {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             out = new PrintWriter(clientSocket.getOutputStream(), true);
         } catch (UnknownHostException e) {
+            System.out.print("Can't connect to the server...");
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.print("Can't connect to the server...");
             e.printStackTrace();
         }
     }
@@ -56,12 +62,15 @@ public class Client {
     }
 
     public String askForSms() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Veuillez entrer un message : ");
-        String message = scanner.nextLine();
-        System.out.println("Le message que vous avez entré est : " + message);
-        scanner.close();
-        return message;
+        System.out.print(this.pseudo + " : ");
+        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+        String inputString = "";
+        try {
+            inputString = bufferRead.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputString;
     }
 
     public static void main(String[] args) {
@@ -72,10 +81,7 @@ public class Client {
         while (true) {
             String message = client.pseudo + " : " + client.askForSms();
             client.sendMessage(message);
-
             System.out.println(client.receiveMessage());
-
-
         }
     }
 
