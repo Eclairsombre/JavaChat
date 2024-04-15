@@ -13,6 +13,12 @@ public class Client{
     private BufferedReader in;
     private PrintWriter out;
 
+    private String pseudo;
+
+    public Client(){
+        
+    }
+
     public void createConnection(String ipServeur, int port){
         try {
             clientSocket = new Socket(ipServeur, port);
