@@ -48,11 +48,15 @@ public class Client{
 
     public static void main(String[] args) {
         Client client = new Client();
-        client.createConnection("192.168.113.193",8080);
 
-        client.sendMessage("Hello from client");
+        client.createConnection("192.168.228.169",8080);
+        while(true){    
+            
+            client.sendMessage("Hello from client 1");
 
-        System.out.println(client.receiveMessage());
-        client.closeConnection();
+            System.out.println(client.receiveMessage());
+        }
+        
+        //client.closeConnection();
     }
 }
