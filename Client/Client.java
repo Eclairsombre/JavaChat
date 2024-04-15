@@ -16,7 +16,10 @@ public class Client {
     private String pseudo;
 
     public Client() {
-
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Veuillez entrer votre pseudo : ");
+        this.pseudo = scanner.nextLine();
+        scanner.close();
     }
 
     public void createConnection(String ipServeur, int port) {
@@ -57,6 +60,7 @@ public class Client {
         System.out.println("Veuillez entrer un message : ");
         String message = scanner.nextLine();
         System.out.println("Le message que vous avez entré est : " + message);
+        scanner.close();
         return message;
     }
 
@@ -66,14 +70,13 @@ public class Client {
 
         client.createConnection("192.168.228.169", 8080);
         while (true) {
-            String message = client.askForSms();
+            String message = client.pseudo + " : " + client.askForSms();
             client.sendMessage(message);
-            client.createConnection("192.168.228.169", 8080);
 
-            // client.closeConnection();
+            System.out.println(client.receiveMessage());
+
 
         }
-        // client.closeConnection();
     }
 
 }
