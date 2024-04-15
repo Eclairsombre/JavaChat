@@ -49,13 +49,15 @@ public class Client{
     public static void main(String[] args) {
         
         Client client = new Client();
-        client.createConnection("192.168.228.169",8080);
 
-        while (true) {
-            client.sendMessage("Hello from Maël");
+        client.createConnection("192.168.228.169",8080);
+        while(true){    
+            
+            client.sendMessage("Hello from client 1");
 
             System.out.println(client.receiveMessage());
         }
-        // client.closeConnection();
+        
+        //client.closeConnection();
     }
 }

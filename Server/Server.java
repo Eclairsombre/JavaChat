@@ -5,40 +5,27 @@ import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
     private ServerSocket serverSocket;
+    private List<Socket> clientSockets;
 
-    private BufferedReader in;
-    private PrintWriter out;
-
-
-    public void createServer(int port){
+    public void createServer(int port) {
         try {
             serverSocket = new ServerSocket(port);
+            clientSockets = new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void sendMessage(String message){
-        out.println(message);
-    }
-
-    public String receiveMessage(){
-        try {
-            return in.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
 
     public void acceptConnections() {
         try {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
+                clientSockets.add(clientSocket);
                 new Thread(() -> handleClient(clientSocket)).start();
             }
         } catch (IOException e) {
@@ -48,10 +35,11 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            while (true)
+            {BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             out.println("Hello from server");
-            System.out.println(in.readLine());
+            System.out.println(in.readLine());}
         } catch (IOException e) {
             e.printStackTrace();
         }
