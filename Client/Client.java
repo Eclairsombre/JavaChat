@@ -51,13 +51,15 @@ public class Client{
         Client client = new Client();
 
         client.createConnection("192.168.228.169",8080);
-        while(true){    
+        int i = 0;
+        while(i < 500){    
             
-            client.sendMessage("Hello from client 1");
+            client.sendMessage("Hello from Maël" + i);
 
             System.out.println(client.receiveMessage());
+            i++;
         }
         
-        //client.closeConnection();
+        client.closeConnection();
     }
 }
