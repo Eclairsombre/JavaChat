@@ -62,7 +62,6 @@ public class Client {
     }
 
     public String askForSms() {
-        System.out.print(this.pseudo + " : ");
         BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
         String inputString = "";
         try {
