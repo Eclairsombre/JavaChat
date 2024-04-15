@@ -44,7 +44,7 @@ public class Server {
                     break;
                 }
                 
-                out.println("Hello from server");
+                out.println(message);
                 System.out.println(message);
             }
             
