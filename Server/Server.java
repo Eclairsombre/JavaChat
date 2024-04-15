@@ -50,6 +50,8 @@ public class Server {
                         writer.println(message);
                     }
                 }
+
+                System.out.println(message);
                 
             }
             

@@ -82,24 +82,13 @@ public class Client {
             String message = client.pseudo + " : " + client.askForSms();
             new Thread(
                 () -> {
-                    
-                        client.sendMessage(message);
-                    
+                    client.sendMessage(message);
                 }
             ).start();
             
-            client.sendMessage(message);
             new Thread(null, () -> {
-                
-                        System.out.println(client.receiveMessage());
-                    
-                
+                System.out.println(client.receiveMessage());
             }).start();
-
-            
-
-
         }
     }
-
 }
