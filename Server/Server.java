@@ -36,7 +36,7 @@ public class Server {
     private void handleClient(Socket clientSocket) {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            //PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             
             while (true) {
                 String message = in.readLine();
@@ -44,9 +44,13 @@ public class Server {
                     break;
                 }
                 
+                for(Socket socket : clientSockets) {
+                    if (socket != clientSocket) {
+                        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+                        writer.println(message);
+                    }
+                }
                 
-                System.out.println(message);
-                out.println(message);
             }
             
             clientSocket.close();

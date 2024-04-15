@@ -73,19 +73,18 @@ public class Client {
             String message = client.pseudo + " : " + client.askForSms();
             new Thread(
                 () -> {
-                    while (true) {
+                    
                         client.sendMessage(message);
-                    }
+                    
                 }
             ).start();
             
             client.sendMessage(message);
             new Thread(null, () -> {
-                while (true) {
-                    if(client.receiveMessage() != null && client.receiveMessage() != message){
+                
                         System.out.println(client.receiveMessage());
-                    }
-                }
+                    
+                
             }).start();
 
             
